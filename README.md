@@ -1,36 +1,10 @@
 # amicable
 
-FIXME: description
-
-## Installation
-
-Download from http://example.com/FIXME.
-
-## Usage
-
-FIXME: explanation
-
-    $ java -jar amicable-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+Returns all amicable number pairs given a range.  Both amicable numbers need to be within this range.
 
 ## License
 
-Copyright © 2016 FIXME
+Copyright © 2016 Mark Lehet && Mathew Kangas
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
