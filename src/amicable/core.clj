@@ -3,16 +3,6 @@
   (:require [clojure.math.numeric-tower :as math])
   (:require [clojure.core.reducers :as r]))
 
-(defn sieve [s]
-  (cons (first s)
-        (lazy-seq (sieve (filter #(not= 0 (mod % (first s)))
-                                 (rest s))))))
-
-;; (defn sum-of-divisors
-;;   [x]
-;;   (r/fold + (flatten (map (fn [y] (if (= (mod x y) 0) y '()))
-;;                  (pmap inc
-;;                        (range (int (Math/ceil (/ x 2)))))))))
 
 (defn upper-half-divisors
   [s x]
@@ -21,27 +11,27 @@
                             1)))
 
 (defn sum-of-divisors
+  "Henry helped us with the finding of factors for this part."
   [x]
   (upper-half-divisors (flatten (pmap (fn [y] (if (= (mod x y) 0) y '()))
                            (range 2 (Math/ceil (math/sqrt x)))))
                        x))
 
-
-(sum-of-divisors 284)
+(def sum-of-divisors-memo
+  (memoize sum-of-divisors))
 
 (defn amicable-finder
   [num]
   (filter (fn [x] (and
-;;                    (= (first x) (sum-of-divisors (last x)))
-                    (= (sum-of-divisors (first x)) (last x))
+                    (= (sum-of-divisors-memo (first x)) (last x))
                     (not= (first x) (last x))
                     (< (first x) (last x))))
-            (pmap  #(vector (sum-of-divisors %) %)
-                  (range num))))
+            (pmap  #(vector (sum-of-divisors-memo %) %)
+                  (range (+ num 1)))))
 
 
 
-(amicable-finder 76085)
+(time (doall (amicable-finder 180848)))
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
